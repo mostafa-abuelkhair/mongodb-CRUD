@@ -38,6 +38,21 @@ exports.createUser  =  async(req,res) => {
 
 }
 
+exports.addProductToUser  =  async(req,res) => {
+
+    const userId = req.params.userId;
+    const productId = req.params.productId;
+
+    try {
+        const result = await usersModel.updateOne({_id: userId }, { $addToSet: { products: productId } })
+        res.send(result);
+    }
+    catch (err) {
+        res.send(err.message);
+    }
+
+}
+
 exports.updateUser =  async(req,res) => {
 
     const id = req.params.id;
